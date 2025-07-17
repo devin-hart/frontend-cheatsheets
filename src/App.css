@@ -1,0 +1,34 @@
+body, #root {
+  margin: 0 auto;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+.top-bar div {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.content {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+pre {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+}
