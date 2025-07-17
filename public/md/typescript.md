@@ -4,7 +4,7 @@ Core syntax, types, patterns, and gotchas for everyday use.
 
 ---
 
-### Basic Types
+### 🔹 Basic Types
 
 ```ts
 let count: number = 5;
@@ -24,7 +24,7 @@ let unknownVal: unknown = 42;
 
 ---
 
-### Union & Literal Types
+### 🔹 Union & Literal Types
 
 ```ts
 let input: string | number;
@@ -39,7 +39,7 @@ type Theme = "light" | "dark";
 
 ---
 
-### Enums
+### 🔹 Enums
 
 ```ts
 enum Role {
@@ -59,7 +59,7 @@ let userRole: Role = Role.Admin;
 
 ---
 
-### Type Aliases
+### 🔹 Type Aliases
 
 ```ts
 type Point = {
@@ -76,7 +76,7 @@ type Point = {
 
 ---
 
-### Interfaces
+### 🔹 Interfaces
 
 ```ts
 interface User {
@@ -94,7 +94,7 @@ interface User {
 
 ---
 
-### Functions
+### 🔹 Functions
 
 ```ts
 function greet(name: string): string {
@@ -110,7 +110,7 @@ function greet(name: string): string {
 
 ---
 
-### Optional & Default Parameters
+### 🔹 Optional & Default Parameters
 
 ```ts
 function log(msg: string, level: string = "info") {
@@ -126,7 +126,7 @@ function log(msg: string, level: string = "info") {
 
 ---
 
-### Tuples
+### 🔹 Tuples
 
 ```ts
 let result: [number, string] = [200, "OK"];
@@ -140,7 +140,7 @@ let result: [number, string] = [200, "OK"];
 
 ---
 
-### Type Assertions
+### 🔹 Type Assertions
 
 ```ts
 let value: any = "hello";
@@ -155,7 +155,7 @@ let len = (value as string).length;
 
 ---
 
-### Generics
+### 🔹 Generics
 
 ```ts
 function identity<T>(arg: T): T {
@@ -171,7 +171,7 @@ function identity<T>(arg: T): T {
 
 ---
 
-### Type Narrowing
+### 🔹 Type Narrowing
 
 ```ts
 function handle(input: string | number) {
@@ -189,7 +189,7 @@ function handle(input: string | number) {
 
 ---
 
-### Utility Types
+### 🔹 Utility Types
 
 ```ts
 type User = {
@@ -207,5 +207,3 @@ type PickUser = Pick<User, "id" | "name">;
 🧠 **Why it matters:** Saves time and simplifies type transformations.
 
 💡 **Example usage:** Use when modifying or reshaping existing object types.
-
----

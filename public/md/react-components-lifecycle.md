@@ -217,6 +217,3 @@ Move state to the nearest common ancestor of components that share it.
 🧠 **Why it matters:** Controlled components give full control; uncontrolled are simpler and less resource-heavy.
 
 💡 **Example usage:** Use controlled for forms with validation, uncontrolled for basic input refs.
-
-
----
