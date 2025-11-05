@@ -135,7 +135,7 @@ const obj = {
 obj.getVal(); // 42
 
 const fn = obj.getVal;
-fn(); // undefined (or window.val in non-strict mode)
+fn(); // undefined in strict mode (or the global object in non-strict)
 ```
 
 📘 **What it is:** Refers to the execution context of a function, determined by how it's called.
@@ -165,3 +165,27 @@ addFive(3); // 8
 🧠 **Why it matters:** Enables partial application and functional composition.
 
 💡 **Example usage:** Helpful in functional pipelines and with libraries like Ramda or Lodash.
+
+---
+
+## 🔹 Prototypal Inheritance
+How objects inherit properties from other objects.
+
+```js
+const animal = {
+  walk() {
+    console.log('walking...');
+  }
+};
+
+const dog = Object.create(animal);
+dog.bark = () => console.log('woof!');
+
+dog.walk(); // "walking..." (inherited from animal)
+```
+
+📘 **What it is:** A mechanism where an object can "fall back" to another object (its prototype) to access properties and methods.
+
+🧠 **Why it matters:** It's JavaScript's core inheritance model. Understanding it is key to understanding object relationships, the `class` keyword (which is syntactic sugar over this), and property lookup.
+
+💡 **Example usage:** Used everywhere under the hood. `Object.create()` is an explicit way to set an object's prototype.

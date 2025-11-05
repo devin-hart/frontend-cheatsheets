@@ -1,63 +1,72 @@
-import React from "react";
+import React, { useState } from 'react';
+import ToggleSwitch from './ToggleSwitch';
 
 type FileEntry = {
   name: string;
   path: string;
 };
 
-type Props = {
+type TopBarProps = {
   files: FileEntry[];
-  onSelect: (file: FileEntry) => void;
   selected: FileEntry | null;
+  onSelect: (file: FileEntry) => void;
+  theme: string;
+  toggleTheme: () => void;
+  flashcardMode: boolean;
+  setFlashcardMode: (mode: boolean) => void;
 };
 
-const toTitleCase = (slug: string) =>
-  slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+const SunIcon = () => <>☀️</>;
+const MoonIcon = () => <>🌙</>;
+const CardIcon = () => <>🗂️</>;
+const DocIcon = () => <>📄</>;
 
-const TopBar: React.FC<Props> = ({ files, onSelect, selected }) => {
+const TopBar: React.FC<TopBarProps> = ({ files, selected, onSelect, theme, toggleTheme, flashcardMode, setFlashcardMode }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div
-    className="top-bar"
-    style={{
-        height: 'auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap', // prevents overflow without height stretching
-    }}
-    >
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          padding: "1rem",
-          background: "#1a1a1a",
-          borderBottom: "1px solid #333",
-        }}
-      >
-        {files.map((file) => (
+    <div className="top-bar-container">
+      <header className="top-bar">
+        <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Open navigation menu" aria-expanded={isMenuOpen}>
+          <span>☰</span>
+        </button>
+        <nav aria-label="Cheat sheet navigation" className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
+        {files.map(file => (
           <button
             key={file.name}
-            onClick={() => onSelect(file)}
-            style={{
-              padding: "0.5rem 1rem",
-              borderRadius: "6px",
-              border:
-                selected?.name === file.name
-                  ? "2px solid white"
-                  : "1px solid gray",
-              background: selected?.name === file.name ? "#111" : "#222",
-              color: selected?.name === file.name ? "white" : "#ccc",
-              fontWeight: selected?.name === file.name ? "bold" : "normal",
+            onClick={() => {
+              onSelect(file);
+              setIsMenuOpen(false); // Close menu on selection
             }}
+            className={selected?.name === file.name ? 'selected' : ''}
+            role="button"
+            aria-pressed={selected?.name === file.name}
           >
-            {toTitleCase(file.name)}
+            {file.name.replace(/-/g, ' ')}
           </button>
         ))}
-      </div>
+        </nav>
+        {isMenuOpen && <div className="overlay" onClick={() => setIsMenuOpen(false)}></div>}
+
+        <div className="controls">
+          <ToggleSwitch
+            id="flashcard-toggle"
+            checked={flashcardMode}
+            onChange={() => setFlashcardMode(!flashcardMode)}
+            iconOn={<CardIcon />}
+            iconOff={<DocIcon />}
+            label="Toggle Flashcard Mode"
+          />
+          <ToggleSwitch
+            id="theme-toggle"
+            checked={theme === 'dark'}
+            onChange={toggleTheme}
+            iconOn={<MoonIcon />}
+            iconOff={<SunIcon />}
+            label="Toggle Dark/Light Theme"
+          />
+        </div>
+      </header>
     </div>
   );
 };

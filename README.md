@@ -9,6 +9,11 @@ Currently, two official plugins are available:
 
 ## Expanding the ESLint configuration
 
+First, install the required packages for a full TypeScript and React linting setup:
+```sh
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-x eslint-plugin-react-dom
+```
+
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
 ```js

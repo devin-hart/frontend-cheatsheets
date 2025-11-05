@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { marked } from 'marked';
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type FileEntry = {
   name: string;
   path: string;
 };
 
-type Props = {
+type MarkdownViewerProps = {
   file: FileEntry;
 };
 
-const MarkdownViewer: React.FC<Props> = ({ file }) => {
-  const [content, setContent] = useState('');
+const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ file }) => {
+  const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
     fetch(file.path)
-      .then(res => res.text())
-      .then(setContent)
-      .catch(console.error);
+      .then(response => response.text())
+      .then(text => setMarkdown(text));
   }, [file]);
 
+  // Split the markdown file into sections based on the '---' separator
+  const sections = markdown.split('---').map(s => s.trim());
+
   return (
-    <div
-      className="markdown-body"
-      dangerouslySetInnerHTML={{ __html: marked(content) }}
-      style={{ padding: '1rem' }}
-    />
+    <div className="markdown-grid">
+      {sections.map((section, index) => (
+        <article key={index} className="markdown-section">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{section}</ReactMarkdown>
+        </article>
+      ))}
+    </div>
   );
 };
 

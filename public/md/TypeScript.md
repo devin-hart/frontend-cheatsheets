@@ -12,6 +12,8 @@ let name: string = "Devin";
 let isActive: boolean = true;
 let tags: string[] = ["react", "ts"];
 let scores: Array<number> = [90, 85];
+let noReturn: void = undefined; // For functions that don't return a value
+function errorFunction(): never { throw new Error(); } // For functions that never return
 let anything: any = "hello"; // Avoid using 'any' if possible
 let unknownVal: unknown = 42;
 ```
@@ -200,6 +202,8 @@ type User = {
 
 type PartialUser = Partial<User>;
 type PickUser = Pick<User, "id" | "name">;
+type OmitEmail = Omit<User, 'email'>;
+type UserRoles = Record<'admin' | 'user', User>;
 ```
 
 📘 **What it is:** Built-in helpers like `Partial`, `Pick`, `Omit`, `Record`, etc.
@@ -207,3 +211,20 @@ type PickUser = Pick<User, "id" | "name">;
 🧠 **Why it matters:** Saves time and simplifies type transformations.
 
 💡 **Example usage:** Use when modifying or reshaping existing object types.
+
+---
+
+### 🔹 Conditional Types
+
+```ts
+type IsString<T> = T extends string ? "yes" : "no";
+
+type A = IsString<"hello">; // "yes"
+type B = IsString<123>;     // "no"
+```
+
+📘 **What it is:** Types that select one of two possible types based on a condition expressed as a type relationship test (`extends`).
+
+🧠 **Why it matters:** They are the foundation for many advanced utility types (like `Omit`, `Exclude`, `ReturnType`) and enable highly dynamic and flexible type logic.
+
+💡 **Example usage:** Creating types that change based on input types, or extracting types from larger structures.
