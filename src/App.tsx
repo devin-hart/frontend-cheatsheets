@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
 useEffect(() => {
   // Use Vite's import.meta.glob to get all .md files in the /public/md directory
-  const mdFiles = import.meta.glob('/public/md/*.md');
+  const mdFiles = import.meta.glob('/public/md/*.md', { query: '?raw', import: 'default' });
 
   // The keys of mdFiles are the paths, e.g., "/public/md/javascript.md"
   const entries: FileEntry[] = Object.keys(mdFiles).map(path => {
