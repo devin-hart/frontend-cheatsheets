@@ -75,7 +75,7 @@ Explain how React's Virtual DOM works.
 
 ```js
 // 1. State changes in a component.
-setState({ name: 'New Name' });
+setState({ name: 'New Name' }); 
 
 // 2. React creates a new virtual DOM tree.
 const newVdom = <h1>New Name</h1>;
