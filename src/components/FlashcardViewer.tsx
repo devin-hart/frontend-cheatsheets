@@ -47,19 +47,18 @@ const FlashcardViewer: React.FC<Props> = ({ file }) => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            code({ node, className, children, ...props }) {
+            code({ node, className, children }) {
               const match = /language-(\w+)/.exec(className || '');
-              return !node.properties.inline && match ? (
+              return (node && !node.properties?.inline && match) ? (
                 <SyntaxHighlighter
                   style={vscDarkPlus as any}
                   language={match[1]}
                   PreTag="div"
-                  {...props}
                 >
                   {String(children).replace(/\n$/, '')}
                 </SyntaxHighlighter>
               ) : (
-                <code className={className} {...props}>
+                <code className={className}>
                   {children}
                 </code>
               );
