@@ -129,11 +129,6 @@ h1, h2 {
     }
 }
 
-pre {
-    padding: 1rem;    
-    background-color: var(--color-code-background);
-}
-
 hr {
     margin-top: 2rem;
     margin-bottom: 2rem;

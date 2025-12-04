@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { marked } from 'marked';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 type FileEntry = {
   name: string;
   path: string;
@@ -40,10 +43,33 @@ const FlashcardViewer: React.FC<Props> = ({ file }) => {
 
   return (
     <div style={{ padding: '1rem' }} className='flashcard-body'>
-      <div
-        dangerouslySetInnerHTML={{ __html: marked(slides[index]) }}
-        style={{ marginBottom: '2rem' }}
-      />
+      <div style={{ marginBottom: '2rem' }}>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || '');
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={vscDarkPlus}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                >
+                  {String(children).replace(/\n$/, '')}
+                </SyntaxHighlighter>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        >
+          {slides[index]}
+        </ReactMarkdown>
+      </div>
+
       <div style={{
   position: 'fixed',
   bottom: 0,
