@@ -32,7 +32,7 @@ const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ file }) => {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              code({ node, className, children, ...props }) {
+              code({ node, className, children }) {
                 const match = /language-(\w+)/.exec(className || '');
                 return (node && !node.properties?.inline && match) ? (
                   <SyntaxHighlighter
